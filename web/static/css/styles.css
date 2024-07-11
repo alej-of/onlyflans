@@ -1,3 +1,22 @@
 body {
     background-color: azure !important;
 }
+
+.card-img-top {
+    width: 200px;
+    height: 250px; /* Adjust this height as needed */
+    object-fit: cover; /* Ensures the image covers the entire area */
+}
+
+.card {
+    height: 100%;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body .card-text {
+    flex-grow: 1;
+}
