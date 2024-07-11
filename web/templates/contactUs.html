@@ -1,0 +1,57 @@
+{% extends "./base.html" %}
+{% block title %}OnlyFlans - Contacto{% endblock %}
+{% block content %}
+    <h1 class="container my-5 text-center">Contáctanos</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <form action="{% url 'contacto' %}" method="post">
+                            {% csrf_token %}
+                            {% if form.errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Por favor corrige los siguientes errores:</strong>
+                                </div>
+                            {% endif %}
+                            <div class="mb-3 row">
+                                <label for="id_customer_email" class="col-sm-3 col-form-label">{{ form.customer_email.label_tag }}</label>
+                                <div class="col-sm-9">
+                                    {{ form.customer_email }}
+                                    {% if form.customer_email.errors %}
+                                        <div class="text-danger">
+                                            {{ form.customer_email.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="id_customer_name" class="col-sm-3 col-form-label">{{ form.customer_name.label_tag }}</label>
+                                <div class="col-sm-9">
+                                    {{ form.customer_name }}
+                                    {% if form.customer_name.errors %}
+                                        <div class="text-danger">
+                                            {{ form.customer_name.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="id_message" class="col-sm-3 col-form-label">{{ form.message.label_tag }}</label>
+                                <div class="col-sm-9">
+                                    {{ form.message }}
+                                    {% if form.message.errors %}
+                                        <div class="text-danger">
+                                            {{ form.message.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
