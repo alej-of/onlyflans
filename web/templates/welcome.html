@@ -1,6 +1,14 @@
 {% extends "./base.html" %}
 {% block title %}OnlyFlans - Bienvenido{% endblock %}
 {% block content %}
-    <h1 class="container my-5 text-center">Bienvenido cliente</h1>
-    {% include "./album.html" %}
+
+<div class="container text-center">
+    <h1 class="mt-5 mb-4 text-center">Bienvenido {{ user.username }}</h1>
+    <button class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#editAccountOffcanvas"
+        aria-controls="editAccountOffcanvas">
+        Editar Cuenta
+    </button>
+</div>
+{% include './updateacc.html' %}
+{% include "./album.html" %}
 {% endblock %}
