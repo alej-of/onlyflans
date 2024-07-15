@@ -34,8 +34,15 @@ def contactUs(request):
             form.save()
             return HttpResponseRedirect('/contact_success/')
     else:
-        form = ContactFormModelForm()
-    
+        if request.user.is_authenticated:
+            initial_data = {
+                'customer_email': request.user.email,
+                'customer_name': request.user.get_full_name()
+            }
+            form = ContactFormModelForm(initial=initial_data)
+        else:
+            form = ContactFormModelForm()
+
     context = {
         'form': form
     }
