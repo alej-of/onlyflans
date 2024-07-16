@@ -80,7 +80,6 @@ def login_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        # Check if the form is valid
         if form.is_valid():
             user = authenticate(request, username=username, password=password)
             if user is not None:
@@ -88,13 +87,12 @@ def login_view(request):
                 messages.success(request, 'Has iniciado sesión correctamente.')
                 return redirect('bienvenido')
         else:
-            # Additional checks for username existence
+            
             user_exists = User.objects.filter(username=username).exists()
             if not user_exists:
                 messages.error(request, 'Usuario no encontrado. Asegúrate de que esté correcto.')
             else:
                 messages.error(request, 'Contraseña incorrecta. Inténtalo de nuevo.')
-
                 
     else:
         form = AuthenticationForm()
