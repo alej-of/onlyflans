@@ -6,7 +6,7 @@ from django.contrib.auth import login,authenticate,logout, update_session_auth_h
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from django.contrib.auth.models import User
 
 # Create your views here.
 def index(request):
@@ -77,20 +77,30 @@ def signup_view(request):
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Check if the form is valid
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
+            user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.success(request,'Has iniciado sesión correctamente.')
+                messages.success(request, 'Has iniciado sesión correctamente.')
                 return redirect('bienvenido')
+        else:
+            # Additional checks for username existence
+            user_exists = User.objects.filter(username=username).exists()
+            if not user_exists:
+                messages.error(request, 'Usuario no encontrado. Asegúrate de que esté correcto.')
+            else:
+                messages.error(request, 'Contraseña incorrecta. Inténtalo de nuevo.')
+
                 
     else:
         form = AuthenticationForm()
 
     context = {
-        'form':form,
+        'form': form,
     }
 
     return render(request, 'login.html', context)

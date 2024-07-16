@@ -3,4 +3,4 @@ setTimeout(function() {
     if (message) {
         message.style.display = 'none';
     }
-}, 3000);
+}, 5000);

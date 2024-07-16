@@ -16,9 +16,15 @@
     {% if messages %}
     <div class="container my-3">
         {% for message in messages %}
-        <div class="alert alert-success" role="alert" id="auto-hide-message">
-            {{ message }}
-        </div>
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger" role="alert" id="auto-hide-message">
+                    {{ message }}
+                </div>
+            {% else %}
+                <div class="alert alert-success" role="alert" id="auto-hide-message">
+                    {{ message }}
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
     {% endif %}
